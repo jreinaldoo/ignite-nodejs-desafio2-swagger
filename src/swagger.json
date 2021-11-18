@@ -1,0 +1,237 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio 2 Documentation",
+        "descrpition": "this is an Desafio",
+        "version": "1.0.0",
+        "contact": {
+            "email": "jroliveirafo@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                  ],
+                "summary": "Create an user",
+                "description": "Create an new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "fulano da silva",
+                                    "email": "fulano@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "User already exists."
+                    }
+                }
+            },
+            "get": {
+                "tags": [ "Users"],
+                "summary": "Get All users profile",
+                "description": "Get List of All users profile (Admin's only)",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "description": "User ID Admin",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "5691a0d5-b440-45ee-b15a-6374b432fa4c",
+                                        "name": "Fulano da Silva",
+                                        "email": "fulano@gmail.com",
+                                        "admin": false,
+                                        "created_at": "2021-11-18T20:15:24.471Z",
+                                        "updated_at": "2021-11-18T20:15:24.471Z"
+                                        }    
+                                    }                                                                    
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User not exists."
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [ "Users"],
+                "summary": "Get user profile by ID",
+                "description": "Get full data of user profile",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {                                    
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "5691a0d5-b440-45ee-b15a-6374b432fa4c",
+                                        "name": "Fulano da Silva",
+                                        "email": "fulano@gmail.com",
+                                        "admin": false,
+                                        "created_at": "2021-11-18T20:15:24.471Z",
+                                        "updated_at": "2021-11-18T20:15:24.471Z"
+                                    }                                                                   
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User not exists."
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": [
+                    "Users"
+                  ],
+                "summary": "Set User to Admin",
+                "operationId": "updateUserAdmin",
+                "description": "Update an exists User to Administrator",
+                "parameters": [
+                        {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    }                                    
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User not exists."
+                    }
+                }
+            }            
+        }
+    }    
+}
